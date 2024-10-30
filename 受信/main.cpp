@@ -69,21 +69,21 @@ int main()
         exit(IPCid);
     }
     print("looking for a message\n");
-    while(true)
+    while (true)
     {
         msgbuf message;
         message.mtype = 1;
         signed long long returnValue = receive(IPCid, &message);
-        if(returnValue >= 0)
+        if (returnValue >= 0)
         {
             print(message.mtext);
             print("\n");
         }
-            
+
         else
             print("The message cannot be read\n");
     }
-    
-    // 相手のプロセスが情報を読み取るために信号を送ったほうがいいですが、この状況では、ターゲットプロセスのIDがわからないので、タイムアウトを使用します。
+
+    // 相手のプロセスが情報を読み取るためには信号を送るほうがよいですが、この状況ではターゲットプロセスのIDがわからないため、SIGNALが来るのを待ちます。
     return 0;
 }
