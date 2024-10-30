@@ -3,7 +3,7 @@
 struct msgbuf
 {
     long mtype = 1;
-    char message[22];
+    char mtext[22];
 };
 struct __kernel_timespec
 {
@@ -89,7 +89,7 @@ int main()
         msgbuf buffer;
         const char *message = "Did you receive that ?";
         for (int i = 0; i < strlen(message); ++i)
-            buffer.message[i] = message[i];
+            buffer.mtext[i] = message[i];
         signed long long returnValue = send(IPCid, &buffer);
         if (returnValue >= 0)
             print("Message sent successfully\n");
