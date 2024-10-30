@@ -1,8 +1,8 @@
 #define IPC_CREAT 0x200
 #define IPC_EXCL 0x200
 struct msgbuf {
-    long mtype;       /* message type, must be > 0 */
-    const char *mtext;    /* message data */
+    long mtype;      
+    const char *mtext;
 };
 constexpr unsigned long long strlen(const char *str)
 {
