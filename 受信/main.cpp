@@ -1,10 +1,11 @@
-#define IPC_CREAT 0x200
-#define IPC_EXCL 0x200
-struct msgbuf {
-    long mtype;      
-    const char *mtext;
+#define MSG_WAITALL 0x1000
+struct msgbuf
+{
+    long mtype;
+    char mtext[200];
 };
-unsigned long long strlen(const char *str)
+template <typename T>
+unsigned long long strlen(T *str)
 {
     unsigned long long count = 0;
     while (*str != 0x00)
@@ -35,29 +36,54 @@ void print(T *str)
                  : "r"(str), "r"(strlen(str))
                  : "%rdi", "%rax", "%rsi", "%rdx");
 }
-char* receive()
+signed long long receive(unsigned long long IPCid, msgbuf *buffer)
 {
-
+    signed long long returnValue;
+    asm volatile("movq %1, %%rdi\n\t"
+                 "movq $0x46, %%rax\n\t"
+                 "movq $200, %%rdx\n\t"
+                 "movq %2, %%rsi\n\t"
+                 "movq $1, %%r10\n\t"
+                 "movq %3, %%r8\n\t"
+                 "syscall\n\t"
+                 "movq %%rax, %0\n\t"
+                 : "=r"(returnValue)
+                 : "r"(IPCid), "r"(buffer), "r"((unsigned long long)0)
+                 : "%rdi", "%rax", "%rsi", "%r8", "%r10", "%rdx");
+    return returnValue;
 }
 int main()
 {
-    signed long long returnValue = 0;
+    signed long long IPCid = 0;
     asm volatile("movq %1, %%rdi\n\t"
                  "movq $0x44, %%rax\n\t"
                  "movq %2, %%rsi\n\t"
                  "syscall\n\t"
                  "movq %%rax, %0\n\t"
-                 : "=r"(returnValue)
+                 : "=r"(IPCid)
                  : "r"((unsigned long long)1234567890), "r"((unsigned long long)0644)
                  : "%rdi", "%rax", "%rsi");
-    if (returnValue < 0)
+    if (IPCid < 0)
     {
         print("IPC queue bot found\n");
-        exit(returnValue);
+        exit(IPCid);
     }
     print("looking for a message\n");
-    char* message = receive();
-    print(message);
-    //相手のプロセスが情報を読み取るために信号を送ったほうがいいですが、この状況では、ターゲットプロセスのIDがわからないので、タイムアウトを使用します。
+    while(true)
+    {
+        msgbuf message;
+        message.mtype = 1;
+        signed long long returnValue = receive(IPCid, &message);
+        if(returnValue >= 0)
+        {
+            print(message.mtext);
+            print("\n");
+        }
+            
+        else
+            print("The message cannot be read\n");
+    }
+    
+    // 相手のプロセスが情報を読み取るために信号を送ったほうがいいですが、この状況では、ターゲットプロセスのIDがわからないので、タイムアウトを使用します。
     return 0;
 }

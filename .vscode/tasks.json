@@ -7,9 +7,9 @@
             "command": "g++",
             "args": [
                 "-g",
-                "送信/main.cpp",
+                "受信/main.cpp",
                 "-o",
-                "送信/target"
+                "受信/target"
             ],
             "group": {
                 "kind": "build",

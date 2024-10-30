@@ -5,7 +5,7 @@
             "name": "Debug C++",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/送信//target", // Changez selon le nom de votre fichier exécutable
+            "program": "${workspaceFolder}/受信/target", // Changez selon le nom de votre fichier exécutable
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

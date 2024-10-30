@@ -1,5 +1,5 @@
 
-# Linux System V Message Queue Project
+# Linux System V Message Queue Test
 
 このプロジェクトは、LinuxのSystem Vメッセージキューを使用してプロセス間通信を実現する方法を示しています。
 
