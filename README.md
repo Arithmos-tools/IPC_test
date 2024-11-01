@@ -1,6 +1,12 @@
 
 # Linux System V Message Queue Test
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Arithmos-tools_IPC_test&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Arithmos-tools_IPC_test)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Arithmos-tools_IPC_test&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Arithmos-tools_IPC_test)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Arithmos-tools_IPC_test&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Arithmos-tools_IPC_test)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Arithmos-tools_IPC_test&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Arithmos-tools_IPC_test)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Arithmos-tools_IPC_test&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Arithmos-tools_IPC_test)
+
 このプロジェクトは、LinuxのSystem Vメッセージキューを使用してプロセス間通信を実現する方法を示しています。
 
 ## 概要
